@@ -1,7 +1,8 @@
 'use client'
 
-import { ArrowDown } from 'lucide-react'
+import { ArrowDown, BarChart3 } from 'lucide-react'
 import { useEffect, useRef } from 'react'
+import Link from 'next/link'
 
 export function HeroSection() {
   const canvasRef = useRef<HTMLCanvasElement>(null)
@@ -131,6 +132,13 @@ export function HeroSection() {
           A comprehensive implementation guide for building production-ready algorithmic trading systems using the Nifty Velocity Alpha framework, multi-agent AI orchestration, and cloud-native architecture.
         </p>
         <div className="flex flex-col items-center gap-4">
+          <Link
+            href="/dashboard"
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-primary text-primary-foreground font-semibold hover:bg-primary/90 transition-colors"
+          >
+            <BarChart3 className="w-5 h-5" />
+            Open Dashboard
+          </Link>
           <div className="flex flex-wrap gap-4 justify-center">
             <div className="px-4 py-2 rounded-lg bg-card border border-border">
               <span className="text-sm text-muted-foreground">Multi-Agent AI</span>
