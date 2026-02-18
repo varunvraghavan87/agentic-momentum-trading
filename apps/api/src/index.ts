@@ -49,13 +49,13 @@ async function main() {
     logger: false,
   });
 
-  // ─── CORS (includes Docker service name for container networking) ───
+  // ─── CORS ───
   await app.register(cors, {
     origin: [
       'http://localhost:3000',
       'http://127.0.0.1:3000',
-      'http://web:3000',
-    ],
+      process.env.WEB_URL || '',
+    ].filter(Boolean),
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
   });
 
