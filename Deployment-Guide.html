@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nifty Velocity Alpha - Deployment Guide</title>
+<style>
+  @page {
+    margin: 1in 0.75in;
+    size: A4;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Segoe UI', Calibri, Arial, sans-serif;
+    font-size: 11pt;
+    line-height: 1.6;
+    color: #1a1a2e;
+    max-width: 8.5in;
+    margin: 0 auto;
+    padding: 40px 60px;
+    background: #fff;
+  }
+
+  /* Cover / Title */
+  .cover {
+    text-align: center;
+    padding: 80px 0 40px;
+    border-bottom: 3px solid #0f3460;
+    margin-bottom: 40px;
+    page-break-after: always;
+  }
+  .cover h1 {
+    font-size: 28pt;
+    color: #0f3460;
+    margin-bottom: 8px;
+    letter-spacing: -0.5px;
+  }
+  .cover .subtitle {
+    font-size: 16pt;
+    color: #16213e;
+    font-weight: 300;
+    margin-bottom: 30px;
+  }
+  .cover .meta {
+    font-size: 10pt;
+    color: #666;
+    margin-top: 60px;
+  }
+  .cover .arch-box {
+    display: inline-block;
+    background: #f0f4ff;
+    border: 1px solid #c8d6f0;
+    border-radius: 8px;
+    padding: 20px 40px;
+    margin: 30px 0;
+    text-align: left;
+  }
+  .cover .arch-box p {
+    font-size: 11pt;
+    margin: 4px 0;
+  }
+  .cover .arch-box strong { color: #0f3460; }
+
+  /* TOC */
+  .toc {
+    page-break-after: always;
+    padding: 20px 0;
+  }
+  .toc h2 {
+    font-size: 18pt;
+    color: #0f3460;
+    border-bottom: 2px solid #0f3460;
+    padding-bottom: 8px;
+    margin-bottom: 20px;
+  }
+  .toc ul { list-style: none; }
+  .toc > ul > li {
+    font-size: 12pt;
+    font-weight: 600;
+    color: #0f3460;
+    margin: 12px 0 4px;
+  }
+  .toc > ul > li > ul > li {
+    font-size: 10.5pt;
+    font-weight: 400;
+    color: #333;
+    margin: 2px 0;
+    padding-left: 20px;
+  }
+
+  /* Headings */
+  h2 {
+    font-size: 18pt;
+    color: #0f3460;
+    border-bottom: 2px solid #0f3460;
+    padding-bottom: 6px;
+    margin-top: 36px;
+    margin-bottom: 16px;
+    page-break-after: avoid;
+  }
+  h3 {
+    font-size: 13pt;
+    color: #16213e;
+    margin-top: 24px;
+    margin-bottom: 8px;
+    page-break-after: avoid;
+  }
+  h4 {
+    font-size: 11pt;
+    color: #333;
+    margin-top: 16px;
+    margin-bottom: 6px;
+  }
+
+  /* Paragraphs and lists */
+  p { margin: 8px 0; }
+  ul, ol { margin: 8px 0 8px 24px; }
+  li { margin: 4px 0; }
+
+  /* Code blocks */
+  pre {
+    background: #f5f7fa;
+    border: 1px solid #dde3ed;
+    border-left: 4px solid #0f3460;
+    border-radius: 4px;
+    padding: 12px 16px;
+    font-family: 'Cascadia Code', 'Consolas', 'Courier New', monospace;
+    font-size: 9.5pt;
+    line-height: 1.5;
+    overflow-x: auto;
+    margin: 10px 0;
+    page-break-inside: avoid;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+  }
+  code {
+    font-family: 'Cascadia Code', 'Consolas', 'Courier New', monospace;
+    font-size: 9.5pt;
+    background: #f0f2f5;
+    padding: 1px 5px;
+    border-radius: 3px;
+  }
+  pre code {
+    background: none;
+    padding: 0;
+  }
+  .comment { color: #6a737d; }
+
+  /* Tables */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 12px 0;
+    font-size: 10pt;
+    page-break-inside: avoid;
+  }
+  th {
+    background: #0f3460;
+    color: #fff;
+    font-weight: 600;
+    text-align: left;
+    padding: 8px 12px;
+  }
+  td {
+    padding: 7px 12px;
+    border-bottom: 1px solid #e0e4ea;
+    vertical-align: top;
+  }
+  tr:nth-child(even) td { background: #f8f9fb; }
+
+  /* Alert / callout boxes */
+  .note {
+    background: #fff8e1;
+    border-left: 4px solid #f9a825;
+    padding: 10px 16px;
+    margin: 12px 0;
+    border-radius: 0 4px 4px 0;
+    font-size: 10pt;
+  }
+  .note strong { color: #e65100; }
+  .critical {
+    background: #fce4ec;
+    border-left: 4px solid #c62828;
+    padding: 10px 16px;
+    margin: 12px 0;
+    border-radius: 0 4px 4px 0;
+    font-size: 10pt;
+  }
+  .critical strong { color: #b71c1c; }
+  .success {
+    background: #e8f5e9;
+    border-left: 4px solid #2e7d32;
+    padding: 10px 16px;
+    margin: 12px 0;
+    border-radius: 0 4px 4px 0;
+    font-size: 10pt;
+  }
+
+  /* Step numbering */
+  .step-num {
+    display: inline-block;
+    background: #0f3460;
+    color: #fff;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 26px;
+    font-size: 10pt;
+    font-weight: 700;
+    margin-right: 8px;
+    vertical-align: middle;
+  }
+
+  /* Page break utilities */
+  .page-break { page-break-before: always; }
+
+  /* Print styles */
+  @media print {
+    body { padding: 0; }
+    pre { font-size: 8.5pt; }
+    .no-print { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ==================== COVER PAGE ==================== -->
+<div class="cover">
+  <h1>Nifty Velocity Alpha</h1>
+  <p class="subtitle">Step-by-Step Deployment Guide</p>
+
+  <div class="arch-box">
+    <p><strong>Frontend:</strong> Next.js 16 Dashboard &rarr; Vercel (auto-deploy)</p>
+    <p><strong>Backend:</strong> Fastify 5 Trading Engine &rarr; VPS + PM2</p>
+    <p><strong>Database:</strong> SQLite with WAL mode</p>
+    <p><strong>AI Signals:</strong> Claude / OpenAI fallback chain</p>
+    <p><strong>Broker:</strong> Zerodha Kite Connect (paper + live modes)</p>
+  </div>
+
+  <p class="meta">
+    Repository: github.com/varunvraghavan87/agentic-momentum-trading<br>
+    91 source files &bull; 97 tests passing &bull; 5-agent AI pipeline<br><br>
+    Generated: February 2026
+  </p>
+</div>
+
+<!-- ==================== TABLE OF CONTENTS ==================== -->
+<div class="toc">
+  <h2>Table of Contents</h2>
+  <ul>
+    <li>Prerequisites</li>
+    <li>Part A: Deploy the API on a VPS
+      <ul>
+        <li>Step 1: Provision and access the VPS</li>
+        <li>Step 2: Install Node.js 20+ and pnpm</li>
+        <li>Step 3: Install build tools for native modules</li>
+        <li>Step 4: Install PM2 process manager</li>
+        <li>Step 5: Clone the repository</li>
+        <li>Step 6: Install dependencies</li>
+        <li>Step 7: Build the API</li>
+        <li>Step 8: Create the .env file</li>
+        <li>Step 9: Create the data directory</li>
+        <li>Step 10: Run database migrations</li>
+        <li>Step 11: Test the API locally</li>
+        <li>Step 12: Start with PM2</li>
+        <li>Step 13: Enable PM2 startup on boot</li>
+        <li>Step 14: Set up Nginx reverse proxy with HTTPS</li>
+        <li>Step 15: Configure DNS</li>
+        <li>Step 16: Verify the API is publicly accessible</li>
+      </ul>
+    </li>
+    <li>Part B: Deploy the Frontend on Vercel
+      <ul>
+        <li>Step 1: Connect GitHub repo to Vercel</li>
+        <li>Step 2: Configure environment variables</li>
+        <li>Step 3: Verify build settings</li>
+        <li>Step 4: Deploy</li>
+        <li>Step 5: Note the Vercel URL</li>
+        <li>Step 6: Update VPS CORS with the Vercel URL</li>
+      </ul>
+    </li>
+    <li>Part C: Post-Deployment Verification</li>
+    <li>Part D: Enabling Live Trading</li>
+    <li>Part E: Updating the Application</li>
+    <li>Part F: Monitoring &amp; Maintenance</li>
+    <li>Quick Reference Tables</li>
+    <li>Troubleshooting</li>
+  </ul>
+</div>
+
+<!-- ==================== PREREQUISITES ==================== -->
+<h2>Prerequisites</h2>
+
+<p>Before starting, ensure you have the following:</p>
+
+<table>
+  <tr><th>Requirement</th><th>Details</th></tr>
+  <tr><td><strong>GitHub Repo</strong></td><td><code>https://github.com/varunvraghavan87/agentic-momentum-trading.git</code></td></tr>
+  <tr><td><strong>Vercel Account</strong></td><td>Free tier works. Sign up at <code>vercel.com</code></td></tr>
+  <tr><td><strong>VPS Server</strong></td><td>DigitalOcean, Hetzner, AWS Lightsail, etc. Ubuntu 22.04+, minimum 1 GB RAM</td></tr>
+  <tr><td><strong>Domain Name</strong></td><td>Optional but recommended for HTTPS (e.g., <code>api.yourdomain.com</code>)</td></tr>
+</table>
+
+<h4>API Keys (optional for paper trading mode)</h4>
+<table>
+  <tr><th>Service</th><th>Key Name</th><th>When Needed</th></tr>
+  <tr><td>Zerodha Kite Connect</td><td><code>KITE_API_KEY</code> + <code>KITE_API_SECRET</code></td><td>Live trading only</td></tr>
+  <tr><td>Anthropic</td><td><code>ANTHROPIC_API_KEY</code></td><td>AI signal analysis (primary)</td></tr>
+  <tr><td>OpenAI</td><td><code>OPENAI_API_KEY</code></td><td>AI signal analysis (fallback)</td></tr>
+</table>
+
+<!-- ==================== PART A ==================== -->
+<h2 class="page-break">Part A: Deploy the API on a VPS</h2>
+
+<h3><span class="step-num">1</span> Provision and Access the VPS</h3>
+<p>SSH into your VPS and create a dedicated non-root user:</p>
+<pre><code><span class="comment"># SSH into your VPS</span>
+ssh root@your-vps-ip
+
+<span class="comment"># Create a non-root user (recommended)</span>
+adduser deploy
+usermod -aG sudo deploy
+su - deploy</code></pre>
+
+<h3><span class="step-num">2</span> Install Node.js 20+ and pnpm</h3>
+<p>The project requires Node.js 20+ and pnpm 10.30.0 (pinned in <code>package.json</code>):</p>
+<pre><code><span class="comment"># Install Node.js 20 via NodeSource</span>
+curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
+sudo apt-get install -y nodejs
+
+<span class="comment"># Install pnpm (must match version 10.30.0 pinned in package.json)</span>
+sudo npm install -g pnpm@10.30.0
+
+<span class="comment"># Verify</span>
+node --version   <span class="comment"># v20.x.x</span>
+pnpm --version   <span class="comment"># 10.30.0</span></code></pre>
+
+<h3><span class="step-num">3</span> Install Build Tools for Native Modules</h3>
+<p>The <code>better-sqlite3</code> package requires native C++ compilation:</p>
+<pre><code>sudo apt-get install -y build-essential python3</code></pre>
+
+<h3><span class="step-num">4</span> Install PM2 Process Manager</h3>
+<pre><code>sudo npm install -g pm2</code></pre>
+
+<h3><span class="step-num">5</span> Clone the Repository</h3>
+<pre><code>cd /home/deploy
+git clone https://github.com/varunvraghavan87/agentic-momentum-trading.git
+cd agentic-momentum-trading</code></pre>
+
+<h3><span class="step-num">6</span> Install Dependencies</h3>
+<pre><code>pnpm install</code></pre>
+<p>This installs all workspace packages (<code>apps/web</code>, <code>apps/api</code>, <code>packages/shared</code>). The <code>better-sqlite3</code> native module compiles during this step.</p>
+
+<h3><span class="step-num">7</span> Build the API</h3>
+<pre><code>cd apps/api
+pnpm build</code></pre>
+<p>This runs <code>tsup</code> and outputs compiled JavaScript to <code>apps/api/dist/index.js</code>.</p>
+
+<h3 class="page-break"><span class="step-num">8</span> Create the <code>.env</code> File</h3>
+<pre><code>cd /home/deploy/agentic-momentum-trading
+cp .env.example .env
+nano .env</code></pre>
+
+<p>Set these values for production:</p>
+<pre><code><span class="comment"># Required</span>
+TRADING_MODE=paper
+NODE_ENV=production
+API_PORT=3001
+API_HOST=0.0.0.0
+TZ=Asia/Kolkata
+DATABASE_PATH=./data/db/trading.db
+
+<span class="comment"># Deployment - CRITICAL</span>
+WEB_URL=https://your-app.vercel.app
+NEXT_PUBLIC_API_URL=https://api.yourdomain.com
+
+<span class="comment"># LLM (at least one needed for AI signal analysis)</span>
+ANTHROPIC_API_KEY=sk-ant-...
+OPENAI_API_KEY=sk-...
+LLM_PRIMARY=claude
+
+<span class="comment"># Zerodha (leave empty for paper mode)</span>
+KITE_API_KEY=
+KITE_API_SECRET=
+
+<span class="comment"># Risk Parameters (defaults are sensible)</span>
+MAX_PORTFOLIO_DRAWDOWN=0.15
+DAILY_LOSS_LIMIT=0.03
+MAX_PER_TRADE_RISK=0.08
+RISK_PER_TRADE=0.015</code></pre>
+
+<div class="critical">
+  <strong>Critical:</strong> <code>WEB_URL</code> must match your exact Vercel deployment URL (including <code>https://</code>). This controls CORS. You'll set the real value after deploying the frontend in Part B.
+</div>
+
+<h3><span class="step-num">9</span> Create the Data Directory</h3>
+<pre><code>mkdir -p apps/api/data/db</code></pre>
+<p>The DB client auto-creates this directory, but creating it explicitly avoids permission issues.</p>
+
+<h3><span class="step-num">10</span> Run Database Migrations</h3>
+<pre><code>cd /home/deploy/agentic-momentum-trading
+pnpm db:migrate</code></pre>
+<p>This creates all 8 SQLite tables: <code>instruments</code>, <code>market_data</code>, <code>indicator_snapshots</code>, <code>trading_signals</code>, <code>orders</code>, <code>positions</code>, <code>portfolio_snapshots</code>, <code>backtest_runs</code>.</p>
+
+<h3><span class="step-num">11</span> Test the API Locally</h3>
+<pre><code>cd apps/api
+node dist/index.js</code></pre>
+
+<div class="success">
+  <strong>Expected output:</strong><br>
+  <code>Server started on http://0.0.0.0:3001</code><br>
+  <code>Trading mode: paper</code><br>
+  <code>Registered cron: evening pipeline at 15:15 IST</code><br>
+  <code>Registered cron: morning execution at 09:14 IST</code>
+</div>
+
+<p>Test with curl in a separate terminal:</p>
+<pre><code>curl http://localhost:3001/api/health
+<span class="comment"># Expected: {"status":"ok","mode":"paper","db":"connected",...}</span></code></pre>
+<p>Press <code>Ctrl+C</code> to stop the test server.</p>
+
+<h3><span class="step-num">12</span> Start with PM2</h3>
+<pre><code>cd /home/deploy/agentic-momentum-trading
+pm2 start ecosystem.config.cjs</code></pre>
+
+<p>The <code>ecosystem.config.cjs</code> is pre-configured with:</p>
+<ul>
+  <li>Process name: <code>amt-api</code></li>
+  <li>Script: <code>dist/index.js</code></li>
+  <li>Working directory: <code>./apps/api</code></li>
+  <li>Auto-restart on crash</li>
+  <li>Memory limit: 512 MB</li>
+  <li>Timezone: <code>Asia/Kolkata</code></li>
+</ul>
+
+<p>Verify:</p>
+<pre><code>pm2 status          <span class="comment"># Should show amt-api as "online"</span>
+pm2 logs amt-api    <span class="comment"># View live logs</span></code></pre>
+
+<h3><span class="step-num">13</span> Enable PM2 Startup on Boot</h3>
+<pre><code>pm2 startup
+<span class="comment"># Follow the instructions it prints (copy-paste the sudo command)</span>
+pm2 save</code></pre>
+
+<h3 class="page-break"><span class="step-num">14</span> Set Up Nginx Reverse Proxy with HTTPS</h3>
+
+<p>Install Nginx and Certbot:</p>
+<pre><code>sudo apt-get install -y nginx certbot python3-certbot-nginx</code></pre>
+
+<p>Create the Nginx configuration:</p>
+<pre><code>sudo nano /etc/nginx/sites-available/amt-api</code></pre>
+
+<p>Paste the following configuration:</p>
+<pre><code>server {
+    listen 80;
+    server_name api.yourdomain.com;  <span class="comment"># Replace with your domain</span>
+
+    location / {
+        proxy_pass http://127.0.0.1:3001;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection 'upgrade';
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_cache_bypass $http_upgrade;
+    }
+}</code></pre>
+
+<p>Enable the site and obtain an SSL certificate:</p>
+<pre><code>sudo ln -s /etc/nginx/sites-available/amt-api /etc/nginx/sites-enabled/
+sudo nginx -t
+sudo systemctl restart nginx
+
+<span class="comment"># Get SSL certificate (DNS must point to VPS IP first)</span>
+sudo certbot --nginx -d api.yourdomain.com</code></pre>
+
+<h3><span class="step-num">15</span> Configure DNS</h3>
+<p>In your domain registrar's DNS settings, create an A record:</p>
+<table>
+  <tr><th>Type</th><th>Name</th><th>Value</th></tr>
+  <tr><td>A</td><td><code>api</code></td><td><code>your-vps-ip-address</code></td></tr>
+</table>
+
+<h3><span class="step-num">16</span> Verify the API is Publicly Accessible</h3>
+<pre><code>curl https://api.yourdomain.com/api/health
+<span class="comment"># Expected: {"status":"ok","mode":"paper","db":"connected",...}</span></code></pre>
+
+<!-- ==================== PART B ==================== -->
+<h2 class="page-break">Part B: Deploy the Frontend on Vercel</h2>
+
+<h3><span class="step-num">1</span> Connect GitHub Repo to Vercel</h3>
+<ol>
+  <li>Go to <strong>vercel.com/new</strong></li>
+  <li>Click <strong>"Import Git Repository"</strong></li>
+  <li>Select the <code>agentic-momentum-trading</code> GitHub repo</li>
+  <li>Vercel auto-detects the framework as <strong>Next.js</strong> from <code>vercel.json</code></li>
+</ol>
+
+<h3><span class="step-num">2</span> Configure Environment Variables</h3>
+<p>In the Vercel project settings &rarr; <strong>Environment Variables</strong>, add:</p>
+<table>
+  <tr><th>Variable</th><th>Value</th><th>Environment</th></tr>
+  <tr><td><code>NEXT_PUBLIC_API_URL</code></td><td><code>https://api.yourdomain.com</code></td><td>Production</td></tr>
+</table>
+
+<div class="note">
+  <strong>Note:</strong> This is the <strong>only</strong> environment variable needed for the frontend. It gets baked into the Next.js build at compile time and is used by <code>apps/web/lib/api.ts</code> for all API calls.
+</div>
+
+<h3><span class="step-num">3</span> Verify Build Settings</h3>
+<p>Vercel reads <code>vercel.json</code> automatically. Confirm these settings in the dashboard:</p>
+<table>
+  <tr><th>Setting</th><th>Value</th></tr>
+  <tr><td>Framework Preset</td><td>Next.js</td></tr>
+  <tr><td>Build Command</td><td><code>cd apps/web && pnpm build</code></td></tr>
+  <tr><td>Output Directory</td><td><code>apps/web/.next</code></td></tr>
+  <tr><td>Install Command</td><td><code>pnpm install</code></td></tr>
+  <tr><td>Root Directory</td><td><code>.</code> (monorepo root)</td></tr>
+</table>
+
+<h3><span class="step-num">4</span> Deploy</h3>
+<p>Click <strong>"Deploy"</strong>. Vercel will:</p>
+<ol>
+  <li>Run <code>pnpm install</code> (installs all workspace packages)</li>
+  <li>Run <code>cd apps/web && pnpm build</code> (builds only the Next.js app)</li>
+  <li>Deploy the <code>.next</code> output</li>
+</ol>
+<p>The build excludes <code>apps/api</code> and <code>data/</code> via <code>.vercelignore</code>.</p>
+
+<h3><span class="step-num">5</span> Note the Vercel URL</h3>
+<p>After deployment, copy your Vercel URL (e.g., <code>https://your-app.vercel.app</code> or your custom domain).</p>
+
+<h3><span class="step-num">6</span> Update VPS CORS with the Vercel URL</h3>
+<p>Back on your VPS, update the <code>.env</code> file with the real Vercel URL:</p>
+<pre><code>ssh deploy@your-vps-ip
+cd /home/deploy/agentic-momentum-trading
+nano .env</code></pre>
+
+<p>Set <code>WEB_URL</code> to your actual Vercel deployment URL:</p>
+<pre><code>WEB_URL=https://your-app.vercel.app</code></pre>
+
+<p>Restart the API to pick up the change:</p>
+<pre><code>pm2 restart amt-api</code></pre>
+
+<div class="critical">
+  <strong>Critical:</strong> Without this step, the Vercel frontend will get CORS errors when calling the API.
+</div>
+
+<!-- ==================== PART C ==================== -->
+<h2 class="page-break">Part C: Post-Deployment Verification</h2>
+
+<p>Run through this checklist to confirm everything is working:</p>
+
+<h3>1. Health Check</h3>
+<pre><code>curl https://api.yourdomain.com/api/health</code></pre>
+<div class="success">
+  <strong>Expected:</strong> <code>{"status":"ok","mode":"paper","db":"connected","cron":true,...}</code>
+</div>
+
+<h3>2. Frontend Loads</h3>
+<p>Open <code>https://your-app.vercel.app</code> in a browser. The presentation site should load.</p>
+
+<h3>3. Dashboard Works</h3>
+<p>Open <code>https://your-app.vercel.app/dashboard</code>. It should show:</p>
+<ul>
+  <li>System status (green / connected)</li>
+  <li>Trading mode: Paper</li>
+  <li>Empty portfolio (no trades yet)</li>
+  <li>"No signals yet" (signals generate at 15:15 IST)</li>
+</ul>
+
+<h3>4. API Connectivity from Frontend</h3>
+<p>Open browser DevTools &rarr; Network tab. The dashboard makes 4 API calls on load:</p>
+<ul>
+  <li><code>GET /api/health</code></li>
+  <li><code>GET /api/dashboard/portfolio</code></li>
+  <li><code>GET /api/signals/today</code></li>
+  <li><code>GET /api/config</code></li>
+</ul>
+<p>All should return <strong>200 OK</strong> (not CORS errors).</p>
+
+<h3>5. Cron Jobs Registered</h3>
+<pre><code>pm2 logs amt-api --lines 20</code></pre>
+<p>Look for:</p>
+<pre><code>Registered cron: evening pipeline at 15:15 IST
+Registered cron: morning execution at 09:14 IST</code></pre>
+
+<h3>6. Kill Switch Test</h3>
+<pre><code>curl -X POST https://api.yourdomain.com/api/config \
+  -H "Content-Type: application/json" \
+  -d '{"killSwitch": true}'</code></pre>
+
+<!-- ==================== PART D ==================== -->
+<h2 class="page-break">Part D: Enabling Live Trading (When Ready)</h2>
+
+<h3><span class="step-num">1</span> Get Zerodha Kite Connect Credentials</h3>
+<ol>
+  <li>Register at <strong>developers.kite.trade</strong></li>
+  <li>Create an app to get your <code>API Key</code> and <code>API Secret</code></li>
+  <li>Set the redirect URL to: <code>https://api.yourdomain.com/api/auth/callback</code></li>
+</ol>
+
+<h3><span class="step-num">2</span> Update VPS Environment</h3>
+<pre><code>nano /home/deploy/agentic-momentum-trading/.env</code></pre>
+<p>Change these values:</p>
+<pre><code>TRADING_MODE=live
+KITE_API_KEY=your_api_key
+KITE_API_SECRET=your_api_secret</code></pre>
+<pre><code>pm2 restart amt-api</code></pre>
+
+<h3><span class="step-num">3</span> Daily Authentication</h3>
+<p>Kite access tokens expire daily. Each trading day you must re-authenticate:</p>
+<ol>
+  <li>Get the login URL:
+    <pre><code>curl https://api.yourdomain.com/api/auth/login
+<span class="comment"># Returns: {"loginURL":"https://kite.zerodha.com/connect/login?..."}</span></code></pre>
+  </li>
+  <li>Open the login URL in your browser</li>
+  <li>Log in with your Zerodha credentials</li>
+  <li>The callback automatically exchanges the token</li>
+</ol>
+
+<div class="note">
+  <strong>Important:</strong> The access token is stored <strong>in-memory only</strong>. If the API restarts (crash, PM2 restart, VPS reboot), you must re-authenticate.
+</div>
+
+<h3><span class="step-num">4</span> Verify Live Connection</h3>
+<pre><code>curl https://api.yourdomain.com/api/auth/status
+<span class="comment"># Expected: {"authenticated":true,"mode":"live"}</span></code></pre>
+
+<!-- ==================== PART E ==================== -->
+<h2>Part E: Updating the Application</h2>
+
+<h3>Frontend (Automatic)</h3>
+<p>Vercel auto-deploys on every push to the <code>main</code> branch. No manual action needed.</p>
+
+<h3>Backend (Manual)</h3>
+<pre><code>ssh deploy@your-vps-ip
+cd /home/deploy/agentic-momentum-trading
+git pull origin main
+pnpm install
+cd apps/api && pnpm build
+pm2 restart amt-api</code></pre>
+
+<!-- ==================== PART F ==================== -->
+<h2>Part F: Monitoring &amp; Maintenance</h2>
+
+<h3>View API Logs</h3>
+<pre><code>pm2 logs amt-api              <span class="comment"># Live log stream</span>
+pm2 logs amt-api --lines 100  <span class="comment"># Last 100 lines</span></code></pre>
+
+<h3>Restart API</h3>
+<pre><code>pm2 restart amt-api</code></pre>
+
+<h3>Check API Status</h3>
+<pre><code>pm2 status    <span class="comment"># Process list with status</span>
+pm2 monit     <span class="comment"># Real-time CPU/memory dashboard</span></code></pre>
+
+<h3>SQLite Database Backup</h3>
+<pre><code><span class="comment"># The DB is at apps/api/data/db/trading.db</span>
+<span class="comment"># Backup while API is running (WAL mode supports this):</span>
+mkdir -p ~/backups
+cp /home/deploy/agentic-momentum-trading/apps/api/data/db/trading.db \
+   ~/backups/trading-$(date +%Y%m%d).db</code></pre>
+
+<h3>Nginx Logs</h3>
+<pre><code>sudo tail -f /var/log/nginx/access.log
+sudo tail -f /var/log/nginx/error.log</code></pre>
+
+<!-- ==================== QUICK REFERENCE ==================== -->
+<h2 class="page-break">Quick Reference</h2>
+
+<h3>URLs &amp; Endpoints</h3>
+<table>
+  <tr><th>Component</th><th>URL</th><th>Technology</th></tr>
+  <tr><td>Frontend</td><td><code>https://your-app.vercel.app</code></td><td>Next.js 16 on Vercel</td></tr>
+  <tr><td>API</td><td><code>https://api.yourdomain.com</code></td><td>Fastify 5 on VPS + PM2</td></tr>
+  <tr><td>Health Check</td><td><code>GET /api/health</code></td><td>&mdash;</td></tr>
+  <tr><td>Dashboard</td><td><code>/dashboard</code></td><td>&mdash;</td></tr>
+  <tr><td>Kite Login</td><td><code>GET /api/auth/login</code></td><td>OAuth2 flow</td></tr>
+  <tr><td>Kill Switch</td><td><code>POST /api/config</code></td><td><code>{"killSwitch": true/false}</code></td></tr>
+</table>
+
+<h3>Environment Variables</h3>
+<table>
+  <tr><th>Variable</th><th>Where</th><th>Purpose</th></tr>
+  <tr><td><code>NEXT_PUBLIC_API_URL</code></td><td>Vercel</td><td>API base URL baked into frontend at build time</td></tr>
+  <tr><td><code>WEB_URL</code></td><td>VPS <code>.env</code></td><td>Frontend URL for CORS allowlist</td></tr>
+  <tr><td><code>TRADING_MODE</code></td><td>VPS <code>.env</code></td><td><code>paper</code> or <code>live</code></td></tr>
+  <tr><td><code>KITE_API_KEY</code></td><td>VPS <code>.env</code></td><td>Zerodha API key (live mode only)</td></tr>
+  <tr><td><code>KITE_API_SECRET</code></td><td>VPS <code>.env</code></td><td>Zerodha API secret (live mode only)</td></tr>
+  <tr><td><code>ANTHROPIC_API_KEY</code></td><td>VPS <code>.env</code></td><td>Claude LLM for signal analysis</td></tr>
+  <tr><td><code>OPENAI_API_KEY</code></td><td>VPS <code>.env</code></td><td>Fallback LLM provider</td></tr>
+  <tr><td><code>DATABASE_PATH</code></td><td>VPS <code>.env</code></td><td>SQLite DB location (default: <code>./data/db/trading.db</code>)</td></tr>
+  <tr><td><code>TZ</code></td><td>VPS <code>.env</code></td><td>Must be <code>Asia/Kolkata</code> for IST cron schedules</td></tr>
+</table>
+
+<!-- ==================== TROUBLESHOOTING ==================== -->
+<h2 class="page-break">Troubleshooting</h2>
+
+<table>
+  <tr><th style="width:35%">Issue</th><th>Solution</th></tr>
+  <tr>
+    <td>CORS errors in browser console</td>
+    <td>Ensure <code>WEB_URL</code> in VPS <code>.env</code> matches your exact Vercel URL (including <code>https://</code>). Restart API after changing.</td>
+  </tr>
+  <tr>
+    <td>Dashboard shows "Disconnected"</td>
+    <td>Check API is running: <code>pm2 status</code>. Verify <code>NEXT_PUBLIC_API_URL</code> in Vercel env vars matches your API URL.</td>
+  </tr>
+  <tr>
+    <td><code>better-sqlite3</code> build fails on VPS</td>
+    <td>Install build tools: <code>sudo apt-get install -y build-essential python3</code></td>
+  </tr>
+  <tr>
+    <td>Cron jobs not firing</td>
+    <td>Check <code>TZ=Asia/Kolkata</code> is set in <code>.env</code>. Check PM2 logs for cron registration messages.</td>
+  </tr>
+  <tr>
+    <td>"No signals" after 15:15 IST</td>
+    <td>At least one LLM API key is required. Check <code>ANTHROPIC_API_KEY</code> or <code>OPENAI_API_KEY</code> is set and valid.</td>
+  </tr>
+  <tr>
+    <td>Kite auth fails</td>
+    <td>Ensure redirect URL in Kite app settings matches <code>https://api.yourdomain.com/api/auth/callback</code> exactly.</td>
+  </tr>
+  <tr>
+    <td>DB locked errors</td>
+    <td>SQLite WAL mode handles concurrent reads. If persistent, ensure only one API process is running (<code>pm2 status</code>).</td>
+  </tr>
+  <tr>
+    <td>Vercel build fails</td>
+    <td>Check Vercel build logs. Common causes: missing <code>NEXT_PUBLIC_API_URL</code> env var, or pnpm version mismatch.</td>
+  </tr>
+  <tr>
+    <td>API won't start after update</td>
+    <td>Run <code>pnpm install</code> then <code>cd apps/api && pnpm build</code> before <code>pm2 restart</code>.</td>
+  </tr>
+</table>
+
+<br>
+<div style="text-align:center; color:#999; font-size:9pt; margin-top:40px; border-top:1px solid #ddd; padding-top:16px;">
+  Nifty Velocity Alpha &mdash; Agentic Momentum Trading Framework<br>
+  Deployment Guide &bull; Generated February 2026
+</div>
+
+</body>
+</html>
