@@ -1,7 +1,7 @@
 import type { FastifyInstance } from 'fastify';
-import { KiteClient } from '../../broker/kite-client.js';
-import { config } from '../../config/index.js';
-import { logger } from '../../utils/logger.js';
+import { KiteClient } from '../../broker/kite-client';
+import { config } from '../../config/index';
+import { logger } from '../../utils/logger';
 
 let kiteClient: KiteClient | null = null;
 let currentAccessToken: string | null = null;

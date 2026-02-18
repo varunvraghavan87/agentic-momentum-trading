@@ -1,4 +1,4 @@
-import { round, percentChange, mean, stddev } from './math.js';
+import { round, percentChange, mean, stddev } from './math';
 
 describe('round', () => {
   it('rounds to specified decimal places', () => {

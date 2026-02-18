@@ -1,4 +1,4 @@
-import type { FallbackLLMChain } from '../../agents/analyst-agent.js';
+import type { FallbackLLMChain } from '../../agents/analyst-agent';
 
 /**
  * Mock implementation of the FallbackLLMChain interface used by AnalystAgent.

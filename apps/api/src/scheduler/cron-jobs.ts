@@ -1,7 +1,7 @@
 import cron from 'node-cron';
-import type { DailyOrchestrator } from './orchestrator.js';
-import { logger } from '../utils/logger.js';
-import { todayIST } from '../utils/date.js';
+import type { DailyOrchestrator } from './orchestrator';
+import { logger } from '../utils/logger';
+import { todayIST } from '../utils/date';
 
 /**
  * Register all recurring cron jobs for the trading system.

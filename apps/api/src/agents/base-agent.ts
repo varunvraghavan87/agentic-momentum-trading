@@ -1,6 +1,6 @@
 import { EventEmitter } from 'node:events';
 import type { AgentResult, AgentName } from '@amt/shared';
-import { logger } from '../utils/logger.js';
+import { logger } from '../utils/logger';
 
 export abstract class BaseAgent extends EventEmitter {
   abstract readonly name: AgentName;

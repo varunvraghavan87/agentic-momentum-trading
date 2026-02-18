@@ -1,4 +1,4 @@
-import { PositionSizer } from './position-sizer.js';
+import { PositionSizer } from './position-sizer';
 
 describe('PositionSizer', () => {
   describe('calculate', () => {

@@ -1,9 +1,9 @@
 import { v4 as uuid } from 'uuid';
 import type { OrderParams, Order, Holding } from '@amt/shared';
-import type { IBroker, BrokerPositions, BrokerQuote } from './types.js';
-import { getDb } from '../db/client.js';
-import { orders as ordersTable } from '../db/schema.js';
-import { logger } from '../utils/logger.js';
+import type { IBroker, BrokerPositions, BrokerQuote } from './types';
+import { getDb } from '../db/client';
+import { orders as ordersTable } from '../db/schema';
+import { logger } from '../utils/logger';
 
 export class PaperBroker implements IBroker {
   readonly mode = 'paper' as const;

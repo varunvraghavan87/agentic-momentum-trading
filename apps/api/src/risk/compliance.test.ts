@@ -1,5 +1,5 @@
 import type { OrderParams } from '@amt/shared';
-import { SEBICompliance } from './compliance.js';
+import { SEBICompliance } from './compliance';
 
 describe('SEBICompliance', () => {
   let compliance: SEBICompliance;

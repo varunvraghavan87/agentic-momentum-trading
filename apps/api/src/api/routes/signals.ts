@@ -1,8 +1,8 @@
 import type { FastifyInstance } from 'fastify';
-import { getDb } from '../../db/client.js';
-import { tradingSignals } from '../../db/schema.js';
+import { getDb } from '../../db/client';
+import { tradingSignals } from '../../db/schema';
 import { eq, desc, and, gte, lte } from 'drizzle-orm';
-import { todayIST } from '../../utils/date.js';
+import { todayIST } from '../../utils/date';
 
 export async function signalRoutes(app: FastifyInstance) {
   app.get('/today', async () => {

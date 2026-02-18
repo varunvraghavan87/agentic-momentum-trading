@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import type { LLMProvider, LLMResponse } from '../../llm/provider.js';
+import type { LLMProvider, LLMResponse } from '../../llm/provider';
 
 /**
  * Mock LLM provider for testing. Returns a pre-configured response

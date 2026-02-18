@@ -1,4 +1,4 @@
-import { subtractDays, addDays, isMarketHours, formatDateIST } from './date.js';
+import { subtractDays, addDays, isMarketHours, formatDateIST } from './date';
 
 describe('subtractDays', () => {
   it('subtracts days from a date string', () => {

@@ -1,4 +1,4 @@
-import { CircuitBreaker } from './circuit-breaker.js';
+import { CircuitBreaker } from './circuit-breaker';
 
 vi.mock('./logger.js', () => ({
   logger: { info: vi.fn(), warn: vi.fn(), error: vi.fn(), debug: vi.fn() },

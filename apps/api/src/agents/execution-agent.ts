@@ -5,13 +5,13 @@ import type {
   ExecutionResult,
   TradeExecution,
 } from '@amt/shared';
-import type { IBroker } from '../broker/types.js';
-import type { DrizzleDB } from '../db/client.js';
-import type { AgentBus } from './agent-bus.js';
-import { BaseAgent } from './base-agent.js';
-import { orders as ordersTable } from '../db/schema.js';
-import { TRADING_CONSTANTS } from '../config/trading.js';
-import { logger } from '../utils/logger.js';
+import type { IBroker } from '../broker/types';
+import type { DrizzleDB } from '../db/client';
+import type { AgentBus } from './agent-bus';
+import { BaseAgent } from './base-agent';
+import { orders as ordersTable } from '../db/schema';
+import { TRADING_CONSTANTS } from '../config/trading';
+import { logger } from '../utils/logger';
 
 interface ExecutionAgentInput {
   date: string;

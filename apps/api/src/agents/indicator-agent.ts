@@ -1,12 +1,12 @@
 import { eq, and } from 'drizzle-orm';
 import type { AgentName, IndicatorAgentOutput } from '@amt/shared';
-import type { IndicatorCalculator } from '../indicators/calculator.js';
-import type { DrizzleDB } from '../db/client.js';
-import type { AgentBus } from './agent-bus.js';
-import { BaseAgent } from './base-agent.js';
-import { instruments, marketData } from '../db/schema.js';
-import { computeIndicatorSnapshot } from '../indicators/snapshot.js';
-import { logger } from '../utils/logger.js';
+import type { IndicatorCalculator } from '../indicators/calculator';
+import type { DrizzleDB } from '../db/client';
+import type { AgentBus } from './agent-bus';
+import { BaseAgent } from './base-agent';
+import { instruments, marketData } from '../db/schema';
+import { computeIndicatorSnapshot } from '../indicators/snapshot';
+import { logger } from '../utils/logger';
 
 interface IndicatorAgentInput {
   date: string;

@@ -2,9 +2,9 @@ import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { mkdtempSync, rmSync, existsSync } from 'fs';
 import { join } from 'path';
 import { tmpdir } from 'os';
-import { createTestDb, type TestDb } from '../__tests__/helpers/test-db.js';
-import { ScreenerAgent } from './screener-agent.js';
-import { AgentBus } from './agent-bus.js';
+import { createTestDb, type TestDb } from '../__tests__/helpers/test-db';
+import { ScreenerAgent } from './screener-agent';
+import { AgentBus } from './agent-bus';
 
 vi.mock('../utils/logger.js', () => ({
   logger: { info: vi.fn(), warn: vi.fn(), error: vi.fn(), debug: vi.fn() },

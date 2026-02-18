@@ -7,7 +7,7 @@ import {
   computeSharpeRatio,
   computeMaxDrawdown,
   computeWinRate,
-} from './metrics.js';
+} from './metrics';
 
 describe('computeCAGR', () => {
   it('should return 1.0 for doubling in 1 year', () => {

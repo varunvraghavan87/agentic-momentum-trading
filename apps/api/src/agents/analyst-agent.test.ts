@@ -2,10 +2,10 @@ import { mkdirSync, writeFileSync, rmSync } from 'fs';
 import { join } from 'path';
 import { tmpdir } from 'os';
 import { randomUUID } from 'crypto';
-import { AnalystAgent } from './analyst-agent.js';
-import { AgentBus } from './agent-bus.js';
-import { createTestDb, type TestDb } from '../__tests__/helpers/test-db.js';
-import { MockFallbackLLM } from '../__tests__/mocks/mock-fallback-llm.js';
+import { AnalystAgent } from './analyst-agent';
+import { AgentBus } from './agent-bus';
+import { createTestDb, type TestDb } from '../__tests__/helpers/test-db';
+import { MockFallbackLLM } from '../__tests__/mocks/mock-fallback-llm';
 import type { BatchAnalysis } from '@amt/shared';
 
 vi.mock('../utils/logger.js', () => ({

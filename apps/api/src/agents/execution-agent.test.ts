@@ -2,11 +2,11 @@ import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { mkdtempSync, mkdirSync, writeFileSync, rmSync } from 'fs';
 import { join } from 'path';
 import { tmpdir } from 'os';
-import { ExecutionAgent } from './execution-agent.js';
-import { AgentBus } from './agent-bus.js';
-import { createTestDb, type TestDb } from '../__tests__/helpers/test-db.js';
-import { MockBroker } from '../__tests__/mocks/mock-broker.js';
-import type { IRiskManager, IPositionSizer } from './execution-agent.js';
+import { ExecutionAgent } from './execution-agent';
+import { AgentBus } from './agent-bus';
+import { createTestDb, type TestDb } from '../__tests__/helpers/test-db';
+import { MockBroker } from '../__tests__/mocks/mock-broker';
+import type { IRiskManager, IPositionSizer } from './execution-agent';
 
 vi.mock('../utils/logger.js', () => ({
   logger: { info: vi.fn(), warn: vi.fn(), error: vi.fn(), debug: vi.fn() },

@@ -1,4 +1,4 @@
-import { TrailingStopManager } from './stop-loss.js';
+import { TrailingStopManager } from './stop-loss';
 
 const makePosition = (overrides = {}) => ({
   averageEntry: 100,

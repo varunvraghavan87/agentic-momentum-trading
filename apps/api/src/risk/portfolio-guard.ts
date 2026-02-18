@@ -1,7 +1,7 @@
 import { desc } from 'drizzle-orm';
-import type { DrizzleDB } from '../db/client.js';
-import { portfolioSnapshots } from '../db/schema.js';
-import type { AppConfig } from '../config/index.js';
+import type { DrizzleDB } from '../db/client';
+import { portfolioSnapshots } from '../db/schema';
+import type { AppConfig } from '../config/index';
 import type { PortfolioState } from '@amt/shared';
 
 export class PortfolioGuard {

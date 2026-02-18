@@ -1,6 +1,6 @@
 import OpenAI from 'openai';
 import type { z } from 'zod';
-import type { LLMProvider, LLMResponse } from './provider.js';
+import type { LLMProvider, LLMResponse } from './provider';
 
 function zodToJsonSchema(schema: z.ZodSchema): Record<string, unknown> {
   const shape = (schema as z.ZodObject<z.ZodRawShape>).shape;

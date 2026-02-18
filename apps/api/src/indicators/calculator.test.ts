@@ -1,4 +1,4 @@
-import { IndicatorCalculator } from './calculator.js';
+import { IndicatorCalculator } from './calculator';
 
 describe('IndicatorCalculator', () => {
   let calc: IndicatorCalculator;

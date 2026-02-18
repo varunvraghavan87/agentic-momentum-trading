@@ -1,17 +1,17 @@
 import { mkdtempSync, rmSync } from 'fs';
 import { join } from 'path';
 import { tmpdir } from 'os';
-import { ScreenerAgent } from '../../agents/screener-agent.js';
-import { AnalystAgent } from '../../agents/analyst-agent.js';
+import { ScreenerAgent } from '../../agents/screener-agent';
+import { AnalystAgent } from '../../agents/analyst-agent';
 import {
   ExecutionAgent,
   type IRiskManager,
   type IPositionSizer,
-} from '../../agents/execution-agent.js';
-import { AgentBus } from '../../agents/agent-bus.js';
-import { createTestDb, type TestDb } from '../helpers/test-db.js';
-import { MockFallbackLLM } from '../mocks/mock-fallback-llm.js';
-import { MockBroker } from '../mocks/mock-broker.js';
+} from '../../agents/execution-agent';
+import { AgentBus } from '../../agents/agent-bus';
+import { createTestDb, type TestDb } from '../helpers/test-db';
+import { MockFallbackLLM } from '../mocks/mock-fallback-llm';
+import { MockBroker } from '../mocks/mock-broker';
 
 vi.mock('../../utils/logger.js', () => ({
   logger: { info: vi.fn(), warn: vi.fn(), error: vi.fn(), debug: vi.fn() },

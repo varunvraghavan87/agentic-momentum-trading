@@ -1,13 +1,13 @@
 import type { AgentName, DataAgentOutput, Instrument } from '@amt/shared';
-import type { KiteClient } from '../broker/kite-client.js';
-import type { AgentBus } from './agent-bus.js';
-import { BaseAgent } from './base-agent.js';
-import { getNifty500 } from '../data/instrument-service.js';
-import { getDb } from '../db/client.js';
-import { marketData } from '../db/schema.js';
-import { subtractDays } from '../utils/date.js';
-import { TRADING_CONSTANTS } from '../config/trading.js';
-import { logger } from '../utils/logger.js';
+import type { KiteClient } from '../broker/kite-client';
+import type { AgentBus } from './agent-bus';
+import { BaseAgent } from './base-agent';
+import { getNifty500 } from '../data/instrument-service';
+import { getDb } from '../db/client';
+import { marketData } from '../db/schema';
+import { subtractDays } from '../utils/date';
+import { TRADING_CONSTANTS } from '../config/trading';
+import { logger } from '../utils/logger';
 
 interface DataAgentInput {
   date: string;

@@ -1,9 +1,9 @@
 import type { FastifyInstance } from 'fastify';
-import { getDb } from '../../db/client.js';
-import { backtestRuns } from '../../db/schema.js';
+import { getDb } from '../../db/client';
+import { backtestRuns } from '../../db/schema';
 import { desc, eq } from 'drizzle-orm';
-import { BacktestEngine } from '../../backtest/engine.js';
-import { logger } from '../../utils/logger.js';
+import { BacktestEngine } from '../../backtest/engine';
+import { logger } from '../../utils/logger';
 
 export async function backtestRoutes(app: FastifyInstance) {
   app.get('/list', async () => {

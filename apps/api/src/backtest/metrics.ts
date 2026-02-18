@@ -1,4 +1,4 @@
-import { mean, stddev } from '../utils/math.js';
+import { mean, stddev } from '../utils/math';
 
 /**
  * Compute Compound Annual Growth Rate.

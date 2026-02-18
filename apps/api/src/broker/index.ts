@@ -1,7 +1,7 @@
-import type { AppConfig } from '../config/index.js';
-import type { IBroker } from './types.js';
-import { KiteClient } from './kite-client.js';
-import { PaperBroker } from './paper-broker.js';
+import type { AppConfig } from '../config/index';
+import type { IBroker } from './types';
+import { KiteClient } from './kite-client';
+import { PaperBroker } from './paper-broker';
 
 export function createBroker(config: AppConfig): IBroker {
   if (config.TRADING_MODE === 'live') {
@@ -10,7 +10,7 @@ export function createBroker(config: AppConfig): IBroker {
   return new PaperBroker();
 }
 
-export { KiteClient } from './kite-client.js';
-export { PaperBroker } from './paper-broker.js';
-export { TokenBucketRateLimiter } from './rate-limiter.js';
-export type { IBroker, BrokerPositions, BrokerQuote, KiteAuthSession } from './types.js';
+export { KiteClient } from './kite-client';
+export { PaperBroker } from './paper-broker';
+export { TokenBucketRateLimiter } from './rate-limiter';
+export type { IBroker, BrokerPositions, BrokerQuote, KiteAuthSession } from './types';

@@ -1,48 +1,48 @@
 import Fastify from 'fastify';
 import cors from '@fastify/cors';
-import { config } from './config/index.js';
-import { logger } from './utils/logger.js';
-import { getDb } from './db/client.js';
-import { healthRoutes } from './api/routes/health.js';
-import { authRoutes } from './api/routes/auth.js';
-import { dashboardRoutes } from './api/routes/dashboard.js';
-import { signalRoutes } from './api/routes/signals.js';
-import { backtestRoutes } from './api/routes/backtest.js';
-import { configRoutes } from './api/routes/config.js';
+import { config } from './config/index';
+import { logger } from './utils/logger';
+import { getDb } from './db/client';
+import { healthRoutes } from './api/routes/health';
+import { authRoutes } from './api/routes/auth';
+import { dashboardRoutes } from './api/routes/dashboard';
+import { signalRoutes } from './api/routes/signals';
+import { backtestRoutes } from './api/routes/backtest';
+import { configRoutes } from './api/routes/config';
 
 // Agent framework
-import { AgentBus } from './agents/agent-bus.js';
-import { DataAgent } from './agents/data-agent.js';
-import { IndicatorAgent } from './agents/indicator-agent.js';
-import { ScreenerAgent } from './agents/screener-agent.js';
-import { AnalystAgent } from './agents/analyst-agent.js';
-import { ExecutionAgent } from './agents/execution-agent.js';
+import { AgentBus } from './agents/agent-bus';
+import { DataAgent } from './agents/data-agent';
+import { IndicatorAgent } from './agents/indicator-agent';
+import { ScreenerAgent } from './agents/screener-agent';
+import { AnalystAgent } from './agents/analyst-agent';
+import { ExecutionAgent } from './agents/execution-agent';
 
 // Scheduler
-import { DailyOrchestrator } from './scheduler/orchestrator.js';
-import { registerCronJobs } from './scheduler/cron-jobs.js';
+import { DailyOrchestrator } from './scheduler/orchestrator';
+import { registerCronJobs } from './scheduler/cron-jobs';
 
 // Broker
-import { PaperBroker } from './broker/paper-broker.js';
-import { KiteClient } from './broker/kite-client.js';
-import type { IBroker } from './broker/types.js';
+import { PaperBroker } from './broker/paper-broker';
+import { KiteClient } from './broker/kite-client';
+import type { IBroker } from './broker/types';
 
 // LLM
-import { FallbackLLMChain } from './llm/fallback-chain.js';
-import { ClaudeProvider } from './llm/claude-provider.js';
-import { OpenAIProvider } from './llm/openai-provider.js';
-import type { LLMProvider } from './llm/provider.js';
+import { FallbackLLMChain } from './llm/fallback-chain';
+import { ClaudeProvider } from './llm/claude-provider';
+import { OpenAIProvider } from './llm/openai-provider';
+import type { LLMProvider } from './llm/provider';
 
 // Risk
-import { PositionSizer } from './risk/position-sizer.js';
-import { PortfolioGuard } from './risk/portfolio-guard.js';
+import { PositionSizer } from './risk/position-sizer';
+import { PortfolioGuard } from './risk/portfolio-guard';
 
 // Indicators
-import { IndicatorCalculator } from './indicators/calculator.js';
+import { IndicatorCalculator } from './indicators/calculator';
 
 // Data services
-import * as instrumentService from './data/instrument-service.js';
-import * as marketDataService from './data/market-data-service.js';
+import * as instrumentService from './data/instrument-service';
+import * as marketDataService from './data/market-data-service';
 
 async function main() {
   const app = Fastify({

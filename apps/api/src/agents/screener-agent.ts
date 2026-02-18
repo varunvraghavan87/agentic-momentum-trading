@@ -1,11 +1,11 @@
 import { eq, and } from 'drizzle-orm';
 import type { AgentName, ScreenerOutput, ScreenerCandidate } from '@amt/shared';
-import type { DrizzleDB } from '../db/client.js';
-import type { AgentBus } from './agent-bus.js';
-import { BaseAgent } from './base-agent.js';
-import { instruments, indicatorSnapshots, marketData } from '../db/schema.js';
-import { TRADING_CONSTANTS } from '../config/trading.js';
-import { logger } from '../utils/logger.js';
+import type { DrizzleDB } from '../db/client';
+import type { AgentBus } from './agent-bus';
+import { BaseAgent } from './base-agent';
+import { instruments, indicatorSnapshots, marketData } from '../db/schema';
+import { TRADING_CONSTANTS } from '../config/trading';
+import { logger } from '../utils/logger';
 
 interface ScreenerAgentInput {
   date: string;

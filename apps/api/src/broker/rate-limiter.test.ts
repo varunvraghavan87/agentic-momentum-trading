@@ -1,4 +1,4 @@
-import { TokenBucketRateLimiter } from '../broker/rate-limiter.js';
+import { TokenBucketRateLimiter } from '../broker/rate-limiter';
 
 describe('TokenBucketRateLimiter', () => {
   it('initializes with maxTokens', () => {

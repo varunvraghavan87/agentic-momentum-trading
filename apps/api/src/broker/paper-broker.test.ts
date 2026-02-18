@@ -1,4 +1,4 @@
-import { createTestDb, type TestDb } from '../__tests__/helpers/test-db.js';
+import { createTestDb, type TestDb } from '../__tests__/helpers/test-db';
 
 let testDbInstance: TestDb;
 

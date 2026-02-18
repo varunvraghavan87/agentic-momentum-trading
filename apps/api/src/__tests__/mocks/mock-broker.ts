@@ -1,5 +1,5 @@
 import type { OrderParams, Order, Holding, TradingMode } from '@amt/shared';
-import type { IBroker, BrokerPositions, BrokerQuote } from '../../broker/types.js';
+import type { IBroker, BrokerPositions, BrokerQuote } from '../../broker/types';
 
 /**
  * Mock broker for testing. Stores placed orders in memory

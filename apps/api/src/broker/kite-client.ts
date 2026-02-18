@@ -1,9 +1,9 @@
 import { KiteConnect } from 'kiteconnect';
 import type { OrderParams, Order, Holding } from '@amt/shared';
-import type { IBroker, BrokerPositions, BrokerQuote, KiteAuthSession } from './types.js';
-import { TokenBucketRateLimiter } from './rate-limiter.js';
-import { TRADING_CONSTANTS } from '../config/trading.js';
-import { logger } from '../utils/logger.js';
+import type { IBroker, BrokerPositions, BrokerQuote, KiteAuthSession } from './types';
+import { TokenBucketRateLimiter } from './rate-limiter';
+import { TRADING_CONSTANTS } from '../config/trading';
+import { logger } from '../utils/logger';
 
 export class KiteClient implements IBroker {
   readonly mode = 'live' as const;

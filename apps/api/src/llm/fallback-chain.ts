@@ -1,6 +1,6 @@
 import type { z } from 'zod';
-import { logger } from '../utils/logger.js';
-import type { LLMProvider, LLMResponse } from './provider.js';
+import { logger } from '../utils/logger';
+import type { LLMProvider, LLMResponse } from './provider';
 
 export class FallbackLLMChain implements LLMProvider {
   public readonly name = 'fallback-chain';

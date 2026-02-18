@@ -1,5 +1,5 @@
 import type { OrderParams } from '@amt/shared';
-import { TokenBucketRateLimiter } from '../broker/rate-limiter.js';
+import { TokenBucketRateLimiter } from '../broker/rate-limiter';
 
 export class SEBICompliance {
   private readonly rateLimiter: TokenBucketRateLimiter;

@@ -1,11 +1,11 @@
 import type { AgentName, ScreenerOutput, BatchAnalysis, StockAnalysis } from '@amt/shared';
-import type { DrizzleDB } from '../db/client.js';
-import type { AgentBus } from './agent-bus.js';
-import { BaseAgent } from './base-agent.js';
-import { tradingSignals } from '../db/schema.js';
-import { buildAnalystPrompt } from '../llm/prompts.js';
-import { BatchAnalysisSchema } from '../llm/schemas.js';
-import { logger } from '../utils/logger.js';
+import type { DrizzleDB } from '../db/client';
+import type { AgentBus } from './agent-bus';
+import { BaseAgent } from './base-agent';
+import { tradingSignals } from '../db/schema';
+import { buildAnalystPrompt } from '../llm/prompts';
+import { BatchAnalysisSchema } from '../llm/schemas';
+import { logger } from '../utils/logger';
 
 interface AnalystAgentInput {
   date: string;

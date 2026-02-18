@@ -1,11 +1,11 @@
 import { eq, desc } from 'drizzle-orm';
-import type { BaseAgent } from '../agents/base-agent.js';
-import type { IBroker } from '../broker/types.js';
-import type { DrizzleDB } from '../db/client.js';
-import { positions, indicatorSnapshots, orders } from '../db/schema.js';
-import { TrailingStopManager } from '../risk/stop-loss.js';
-import { retryWithBackoff } from '../utils/retry.js';
-import { logger, type Logger } from '../utils/logger.js';
+import type { BaseAgent } from '../agents/base-agent';
+import type { IBroker } from '../broker/types';
+import type { DrizzleDB } from '../db/client';
+import { positions, indicatorSnapshots, orders } from '../db/schema';
+import { TrailingStopManager } from '../risk/stop-loss';
+import { retryWithBackoff } from '../utils/retry';
+import { logger, type Logger } from '../utils/logger';
 
 /**
  * DailyOrchestrator coordinates the sequential execution of agents

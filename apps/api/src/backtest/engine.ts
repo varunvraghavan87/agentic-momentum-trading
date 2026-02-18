@@ -1,8 +1,8 @@
 import { eq, and, gte, lte, asc } from 'drizzle-orm';
-import type { DrizzleDB } from '../db/client.js';
-import { marketData, backtestRuns } from '../db/schema.js';
-import { logger } from '../utils/logger.js';
-import { computeCAGR, computeSharpeRatio, computeMaxDrawdown, computeWinRate } from './metrics.js';
+import type { DrizzleDB } from '../db/client';
+import { marketData, backtestRuns } from '../db/schema';
+import { logger } from '../utils/logger';
+import { computeCAGR, computeSharpeRatio, computeMaxDrawdown, computeWinRate } from './metrics';
 
 /* ------------------------------------------------------------------ */
 /*  Types                                                             */

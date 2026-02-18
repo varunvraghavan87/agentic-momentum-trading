@@ -1,6 +1,6 @@
-import { IndicatorCalculator } from './calculator.js';
-import { indicatorSnapshots } from '../db/schema.js';
-import type { DrizzleDB } from '../db/client.js';
+import { IndicatorCalculator } from './calculator';
+import { indicatorSnapshots } from '../db/schema';
+import type { DrizzleDB } from '../db/client';
 import type { OHLCV } from '@amt/shared';
 
 const calculator = new IndicatorCalculator();

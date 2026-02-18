@@ -1,7 +1,7 @@
 import { EventEmitter } from 'node:events';
 import { mkdir, writeFile, readFile } from 'node:fs/promises';
 import { join } from 'node:path';
-import { logger } from '../utils/logger.js';
+import { logger } from '../utils/logger';
 
 /**
  * Inter-agent communication bus.

@@ -1,6 +1,6 @@
 import type { FastifyInstance } from 'fastify';
-import { getDb } from '../../db/client.js';
-import { positions, portfolioSnapshots, orders } from '../../db/schema.js';
+import { getDb } from '../../db/client';
+import { positions, portfolioSnapshots, orders } from '../../db/schema';
 import { eq, desc } from 'drizzle-orm';
 
 export async function dashboardRoutes(app: FastifyInstance) {
