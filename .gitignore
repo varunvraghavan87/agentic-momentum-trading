@@ -3,7 +3,7 @@ dist/
 .next/
 .turbo/
 .env
-data/
+/data/
 *.db
 *.db-journal
 *.db-wal
