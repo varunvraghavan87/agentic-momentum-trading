@@ -245,6 +245,8 @@ async function main() {
     screenerAgent,
     analystAgent,
     executionAgent,
+    logger,
+    { broker, db },
   );
 
   registerCronJobs(orchestrator);

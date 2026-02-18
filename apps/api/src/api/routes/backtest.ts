@@ -2,6 +2,8 @@ import type { FastifyInstance } from 'fastify';
 import { getDb } from '../../db/client.js';
 import { backtestRuns } from '../../db/schema.js';
 import { desc, eq } from 'drizzle-orm';
+import { BacktestEngine } from '../../backtest/engine.js';
+import { logger } from '../../utils/logger.js';
 
 export async function backtestRoutes(app: FastifyInstance) {
   app.get('/list', async () => {
@@ -42,7 +44,7 @@ export async function backtestRoutes(app: FastifyInstance) {
     return { run: run[0] ?? null };
   });
 
-  app.post('/run', async (request) => {
+  app.post('/run', async (request, reply) => {
     const body = request.body as {
       name?: string;
       startDate?: string;
@@ -51,19 +53,41 @@ export async function backtestRoutes(app: FastifyInstance) {
     };
 
     if (!body.startDate || !body.endDate) {
-      return { error: 'startDate and endDate are required' };
+      return reply.status(400).send({ error: 'startDate and endDate are required' });
     }
 
-    // Backtest execution is placeholder — will be wired to BacktestEngine
-    return {
-      status: 'queued',
-      message: 'Backtest has been queued for execution',
-      config: {
-        name: body.name ?? 'Unnamed Backtest',
-        startDate: body.startDate,
-        endDate: body.endDate,
-        initialCapital: body.initialCapital ?? 1000000,
-      },
+    const backtestConfig = {
+      name: body.name ?? `Backtest ${body.startDate} to ${body.endDate}`,
+      startDate: body.startDate,
+      endDate: body.endDate,
+      initialCapital: body.initialCapital ?? 1_000_000,
     };
+
+    try {
+      const db = getDb();
+      const engine = new BacktestEngine(db);
+      const result = await engine.run(backtestConfig);
+
+      return {
+        status: 'completed',
+        config: backtestConfig,
+        metrics: {
+          finalEquity: result.finalEquity,
+          cagr: result.cagr,
+          sharpeRatio: result.sharpeRatio,
+          maxDrawdown: result.maxDrawdown,
+          winRate: result.winRate,
+          totalTrades: result.totalTrades,
+        },
+        equityCurve: result.equityCurve,
+      };
+    } catch (err) {
+      logger.error({ err, config: backtestConfig }, 'Backtest failed');
+      return reply.status(500).send({
+        status: 'error',
+        error: err instanceof Error ? err.message : 'Backtest execution failed',
+        config: backtestConfig,
+      });
+    }
   });
 }
